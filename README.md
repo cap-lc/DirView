@@ -1,5 +1,6 @@
 # DirView
-il s'agit d'un outil pour voir le contenue de dossier en ajoutant la commande terminal `dirview`
+il s'agit d'un outil pour voir le contenue de dossier en ajoutant la commande terminal `dirview`.
+Une instalation de python est necessaire.
 
 ### Utilisation
 Par défaut `dirview` détail ce qui se trouve dans le dossier actuellement ouvert par le terminal :
@@ -46,3 +47,6 @@ folder
 ```
 
 Les options `-m` et de chemin imposé sont compatible peut import leur ordre
+
+### Instalation
+Une fois le dossier du projet télécharger il suffit d'executer `pipsetup.bat` ce script fait une instalation à l'aide de pip
