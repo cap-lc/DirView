@@ -100,7 +100,6 @@ def main():
             if not dir.is_dir(): dir = dir.parent
 
     if not fail :
-        # print("\n".join(directory_view_print(dir, minimalist=m)))
         directory_view_print(dir, minimalist=m)
 
 if __name__ == "__main__" :
