@@ -26,7 +26,7 @@ def directory_view(dir: Path, tab: str = "",
             name = f"file(s){elem.suffix}"
             if elem.is_dir(): name = elem.name
             
-            info.append((elem, f"file(s){elem.suffix}", elem.is_dir()))
+            info.append((elem, name, elem.is_dir()))
     else :
         info = [
             (elem, elem.name, elem.is_dir()) for elem in dir.iterdir()
@@ -77,23 +77,30 @@ def main():
             m = True
 
         else :
+            
             if dir_p :
                 print("Only one folder can be processed")
                 fail = True
                 break
 
             if arg == "cwd":
+                # print("arg == 'cwd'")
                 dir = Path(os.getcwd())
 
-            elif arg.startswith("./"):
+            elif arg.startswith("."):
+                # print("arg.startswith('.')")
                 dir = Path(f"{os.getcwd()}/{arg[1:]}")
 
-            else : dir = Path(arg)
+            else : 
+                # print("else")
+                dir = Path(arg)
 
             if not dir.exists():
                 print(f"Unable to find Path from : {dir}")
                 fail = True
                 break
+            
+            if not dir.is_dir(): dir = dir.parent
 
     if not fail :
         print("\n".join(directory_view(dir, minimalist=m)))
