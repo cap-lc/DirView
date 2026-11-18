@@ -12,8 +12,6 @@ def directory_view(dir: Path, tab: str = "",
                    minimalist: bool = False) -> list[str] :
     output: list[str] = []
     if head_name: output.append(dir.name)
-
-    ext_set: set[str] = set()
     
     info: list[tuple[Path, str, bool]] = []
     if minimalist :
