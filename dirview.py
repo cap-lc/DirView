@@ -7,24 +7,26 @@ JUMP = "│  "
 NEXT = "├──"
 LAST = "└──"
 
-def directory_view(dir: Path, tab: str = "", 
+def directory_view_print(dir: Path, tab: str = "", 
                    head_name: bool = True,
-                   minimalist: bool = False) -> list[str] :
-    output: list[str] = []
-    if head_name: output.append(dir.name)
+                   minimalist: bool = False) -> None :
+    
+    if head_name: print(dir.name)
     
     info: list[tuple[Path, str, bool]] = []
     if minimalist :
         ext: set[str] = set()
         for elem in dir.iterdir() :
-            ext_ = elem.suffix
-            if ext_ in ext: continue
-            ext.add(ext_)
+            is_dir = elem.is_dir()
+            suffix = elem.suffix
+                
+            if (suffix in ext) and (not is_dir): continue
+            ext.add(suffix)
             
-            name = f"file(s){elem.suffix}"
-            if elem.is_dir(): name = elem.name
+            name = f"file(s){suffix}"
+            if is_dir: name = elem.name
             
-            info.append((elem, name, elem.is_dir()))
+            info.append((elem, name, is_dir))
     else :
         info = [
             (elem, elem.name, elem.is_dir()) for elem in dir.iterdir()
@@ -37,15 +39,12 @@ def directory_view(dir: Path, tab: str = "",
         tab_elem = NEXT
         if is_last : tab_elem = LAST
 
-        output.append(f"{tab}{tab_elem}{name}")
+        print(f"{tab}{tab_elem}{name}")
 
         if is_dir :
             new_tab = JUMP
             if is_last : new_tab = TAB
-            extend = directory_view(path, tab + new_tab, False, minimalist)
-            output.extend(extend)
-
-    return output
+            directory_view_print(path, tab + new_tab, False, minimalist)
 
 def main():
     argv = sys.argv[1:]
@@ -101,7 +100,8 @@ def main():
             if not dir.is_dir(): dir = dir.parent
 
     if not fail :
-        print("\n".join(directory_view(dir, minimalist=m)))
+        # print("\n".join(directory_view_print(dir, minimalist=m)))
+        directory_view_print(dir, minimalist=m)
 
 if __name__ == "__main__" :
     print(sys.argv)
