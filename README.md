@@ -37,8 +37,8 @@ Une option `-m` permet de limiter le nombre de fichiers affichés en se limitant
 ```cmd
 PS C:\path\to\folder> dirview -m
 folder
-├──file(s)
-│  ├──file(s)
+├──dir1
+│  ├──dir2
 │  │  └──file(s).f90
 │  ├──file(s).txt
 │  └──file(s).md
