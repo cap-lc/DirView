@@ -15,29 +15,36 @@ def directory_view(dir: Path, tab: str = "",
 
     ext_set: set[str] = set()
     
-    iter = list(dir.iterdir())
-    i_max = len(iter)-1
-    for i, elem in enumerate(iter) :
-        ext = elem.suffix
+    info: list[tuple[Path, str, bool]] = []
+    if minimalist :
+        ext: set[str] = set()
+        for elem in dir.iterdir() :
+            ext_ = elem.suffix
+            if ext_ in ext: continue
+            ext.add(ext_)
+            
+            name = f"file(s){elem.suffix}"
+            if elem.is_dir(): name = elem.name
+            
+            info.append((elem, f"file(s){elem.suffix}", elem.is_dir()))
+    else :
+        info = [
+            (elem, elem.name, elem.is_dir()) for elem in dir.iterdir()
+        ]
+    
+    i_max = len(info)-1
+    for i, (path, name, is_dir) in enumerate(info) :
         is_last = i == i_max
-        is_dir = elem.is_dir()
-        is_old = ext in ext_set
-
-        if minimalist and is_old: continue
 
         tab_elem = NEXT
         if is_last : tab_elem = LAST
 
-        to_display: str = elem.name
-        if minimalist and not is_dir: 
-            to_display = f"file(s){ext}"
-            ext_set.add(ext)
-        output.append(f"{tab}{tab_elem}{to_display}")
+        output.append(f"{tab}{tab_elem}{name}")
 
         if is_dir :
             new_tab = JUMP
             if is_last : new_tab = TAB
-            extend = directory_view(elem, tab + new_tab, False, minimalist)
+            extend = directory_view(path, tab + new_tab, False, minimalist)
             output.extend(extend)
 
     return output
