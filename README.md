@@ -49,4 +49,4 @@ folder
 Les options `-m` et de chemin imposé sont compatible peut import leur ordre
 
 ### Instalation
-Une fois le dossier du projet télécharger il suffit d'executer `pipsetup.bat` ce script fait une instalation à l'aide de pip
+Une fois le dossier du projet télécharger il suffit d'executer `setup.bat` ce script fait une instalation à l'aide de pip
