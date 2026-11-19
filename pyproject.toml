@@ -3,9 +3,7 @@ name = "dirview"
 version = "0.1.3"
 
 dependencies = [
-    "pathlib",
-    "sys",
-    "os",
+    "pathlib"
 ]
 
 [project.scripts]
